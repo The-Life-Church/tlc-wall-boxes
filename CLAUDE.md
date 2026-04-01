@@ -10,6 +10,20 @@ This is a single-file static web application for HSL Wall Boxes at The Life Chur
 
 No build system, package manager, or dependencies. Open `index.html` directly in a browser — that's it.
 
+## Agent Guidance
+
+- Treat `main` as the only active branch. Do not recreate or rely on a `stage` branch unless the user explicitly asks for it.
+- This repo deploys automatically to Firebase Hosting from GitHub Actions on pushes to `main`.
+- The live public app URL is `https://hsl-wall-boxes.web.app`.
+- The Firebase project ID is `tlc-production-apps-2026`.
+- The Firebase Hosting site target in `firebase.json` is `hsl-wall-boxes`. Keep workflow config aligned with that site if Hosting settings change.
+- The repo remote is `https://github.com/The-Life-Church/HSL-Wall-Boxes.git`. If the repository name changes again, update the local `origin` URL and confirm the GitHub Actions still point at the correct repo.
+- Firebase Auth is enabled for Google sign-in and currently restricted in `index.html` to approved `@thelifechurch.com` users. Be careful when editing auth-domain checks because both Firebase Auth config and client-side checks affect access.
+- The Firebase web app config is embedded directly in `index.html`. Do not replace it with placeholders unless the user explicitly wants to disconnect the deployed app.
+- Keep `.firebase/` and `firebase-debug.log` out of commits. `.gitignore` already excludes them.
+- For local verification, a browser open of `index.html` is enough for layout work, but authentication behavior should be validated against the deployed Hosting URL because Google sign-in depends on Firebase Auth configuration and authorized domains.
+- If changing Firebase Hosting targets or URLs, update both `firebase.json` and `.github/workflows/firebase-hosting-merge.yml` plus `.github/workflows/firebase-hosting-pull-request.yml` so GitHub Actions keep deploying to the intended site.
+
 ## Architecture
 
 The entire application lives in `index.html` (~557 lines). There are no external scripts, frameworks, or stylesheets (only Google Fonts via CDN).
