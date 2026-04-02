@@ -1,4 +1,4 @@
-# HSL Wall Boxes
+# TLC Wall Boxes
 
 Static internal reference app for wall box and stage box connections at The Life Church.
 
